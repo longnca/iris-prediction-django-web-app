@@ -34,6 +34,6 @@ def predict_chances(request):
 
 
 def view_results(request):
-    # Submit prediction and show all
+    """Submit prediction and show all results."""
     data = {"dataset": PredResults.objects.all()}
     return render(request, "results.html", data)

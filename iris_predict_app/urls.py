@@ -8,4 +8,5 @@ app_name = "iris_predict_app"
 urlpatterns = [
     path("", views.predict, name="predict"),
     path("iris_predict_app/", views.predict_chances, name="submit_prediction"),
+    path('results/', views.view_results, name='results'),
 ]
