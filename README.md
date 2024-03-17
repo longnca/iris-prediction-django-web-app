@@ -1,5 +1,9 @@
 # Iris Prediction Web App using Scikit-learn and Django
 
+## Introduction 
+
+A simple project to practice building a web app using Django framework to predict Iris flower.
+
 ## Introduction to the Iris dataset
 
 This data sets consists of 3 different types of irises’ (Setosa, Versicolour, and Virginica) petal and sepal length, stored in a 150x4 numpy.ndarray.
