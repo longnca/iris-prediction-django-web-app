@@ -1,73 +1,71 @@
 # Iris Prediction Web App using Scikit-learn and Django
 
-## Introduction 
+## Introduction
 
-A simple project to practice building a web app using Django framework to predict Iris flower.
+This is a simple project to practice building a web app to predict Iris flower based on its characteristics (petal, sepal lengths, etc.). I used Support Vector Machines (SVM) model to train the samples and make predictions. Then, I built an interactive web-based application using Django framework. Users can enter the input values and the app backend will make predictions based on the trained model and respond with the prediction results.
 
-## Introduction to the Iris dataset
+## Features
 
-This data sets consists of 3 different types of irises’ (Setosa, Versicolour, and Virginica) petal and sepal length, stored in a 150x4 numpy.ndarray.
+- Interactive input form: Users can enter the input values of iris flower's characteristics to the form.
+- Fast prediction feedback: The backend pre-trained model predicts and responds with the results of the iris flower name.
+- Historical results view: Users or admins can review the past prediction results in the Database.
 
-The rows being the samples and the columns being: Sepal Length, Sepal Width, Petal Length and Petal Width.
+## Installation
 
-Read more about the Iris dataset [here](https://archive.ics.uci.edu/dataset/53/iris).
+Here is how you can start using the app on your own computer:
 
-## How to install the dependencies
+### Step 1: Setting up a virtual environment
+
+I've used `pipenv` for this project. If you have not installed `pipenv` yet, run the following command in your terminal or command prompt:
 
 ```bash
-$ pipenv install --dev
+pip install pipenv
 ```
 
-## Machine learning model
+Or if you just want to use the traditional virtual environment setup, run the command:
 
-I choose the **Support Vector Classification (SVC)** model since it's one of the models yielding the best accuracy and precision compared to other methods.
-
-### Template Flow and Interaction
-
-```mermaid
-graph LR
-    Base(('base.html')) -->|extends| Predict('predict.html')
-    Predict -->|AJAX POST| PredictChancesURL(predict_chances in 'views.py')
-    Predict -->|extends| Results('results.html')
-    PredictChancesURL -->|returns JSON| Predict
-    Results -->|view_results in 'views.py'| DB[("Database")]
+```bash
+python -m venv venv
 ```
 
-### Models and Database
+### Step 2: Cloning the repository
 
-```mermaid
-classDiagram
-    class PredResults{
-      +float sepal_length
-      +float sepal_width
-      +float petal_length
-      +float petal_width
-      +string classification
-    }
-    
-    PredResults : - (iris_predict_app/models.py)
+Enter the script in the terminal:
 
-    class Database{
-        Tables
-    }
+```bash
+git clone https://github.com/longnca/iris-prediction-django-web-app.git
+``` 
 
-    PredResults --> Database: Stores to
+Then, go to the project's directory where the `Pipfile` and `Pipfile.lock` are located.
+
+### Step 3: Installing dependencies using pipenv
+
+Now, you're ready to set up your environment. Run the following command:
+
+```bash
+pipenv install --ignore-pipfile
 ```
 
-### Views and URL Configuration
+This ensures that you are installing the exact versions of the dependencies that I used.
 
-```mermaid
-graph TD
-    URLConfIris(iris/urls.py) --> URLConfApp(iris_predict_app/urls.py)
-    URLConfApp -->|predict| ViewPredict(predict view)
-    URLConfApp -->|iris_predict_app/| ViewPredictChances(predict_chances view)
-    URLConfApp -->|results/| ViewResults(view_results view)
+However, if you want to install dependencies based on the Pipfile and update the Pipfile.lock accordingly, use this instead:
 
-    ViewPredict -->|render| PredictT(predict.html)
-    ViewPredictChances -->|process & respond| PredictAJAX
-    ViewResults -->|render| ResultsT(results.html)
-
-    PredictT -->|submit form| PredictAJAX("/iris_predict_app/")
-    PredictAJAX -->|return data| PredictT
-    ResultsT -->|display| DB[("Database")]
+```bash
+pipenv install
 ```
+
+If you do not use `pipenv`, then run this command to install the dependencies listed in the `requirements.txt` (it's actually extracted from my pipfile):
+
+```bash
+pip install -r requirements.txt
+```
+
+### Step 4: Activate the virtual environment 
+
+Run this command:
+
+```bash
+pipenv shell
+```
+
+Then, verify that the correct dependencies are installed by running `pip list` or `pipenv graph`.
