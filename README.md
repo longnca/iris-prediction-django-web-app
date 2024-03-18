@@ -22,3 +22,52 @@ $ pipenv install --dev
 
 I choose the **Support Vector Classification (SVC)** model since it's one of the models yielding the best accuracy and precision compared to other methods.
 
+### Template Flow and Interaction
+
+```mermaid
+graph LR
+    Base(('base.html')) -->|extends| Predict('predict.html')
+    Predict -->|AJAX POST| PredictChancesURL(predict_chances in 'views.py')
+    Predict -->|extends| Results('results.html')
+    PredictChancesURL -->|returns JSON| Predict
+    Results -->|view_results in 'views.py'| DB[("Database")]
+```
+
+### Models and Database
+
+```mermaid
+classDiagram
+    class PredResults{
+      +float sepal_length
+      +float sepal_width
+      +float petal_length
+      +float petal_width
+      +string classification
+    }
+    
+    PredResults : - (iris_predict_app/models.py)
+
+    class Database{
+        Tables
+    }
+
+    PredResults --> Database: Stores to
+```
+
+### Views and URL Configuration
+
+```mermaid
+graph TD
+    URLConfIris(iris/urls.py) --> URLConfApp(iris_predict_app/urls.py)
+    URLConfApp -->|predict| ViewPredict(predict view)
+    URLConfApp -->|iris_predict_app/| ViewPredictChances(predict_chances view)
+    URLConfApp -->|results/| ViewResults(view_results view)
+
+    ViewPredict -->|render| PredictT(predict.html)
+    ViewPredictChances -->|process & respond| PredictAJAX
+    ViewResults -->|render| ResultsT(results.html)
+
+    PredictT -->|submit form| PredictAJAX("/iris_predict_app/")
+    PredictAJAX -->|return data| PredictT
+    ResultsT -->|display| DB[("Database")]
+```
