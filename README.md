@@ -1,5 +1,7 @@
 # Iris Prediction Web App using Scikit-learn and Django
 
+![predict-frontend](./assets/predict.png)
+
 ## Introduction
 
 This is a simple project to practice building a web app to predict Iris flower based on its characteristics (petal, sepal lengths, etc.). I used Support Vector Machines (SVM) model to train the samples and make predictions. Then, I built an interactive web-based application using Django framework. Users can enter the input values and the app backend will make predictions based on the trained model and respond with the prediction results.
