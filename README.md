@@ -71,3 +71,36 @@ pipenv shell
 ```
 
 Then, verify that the correct dependencies are installed by running `pip list` or `pipenv graph`.
+
+## Usage
+
+### Start Django server
+
+After activating the virtual environment, go to the directory of the GitHub repository that you cloned. In the terminal, use the following command:
+
+```bash
+python manage.py runserver
+```
+
+You should see the following return:
+
+![runserver](./assets/runserver.png)
+
+Then, you can Ctrl + click on the link: `http://127.0.0.1:8000/` or head over to your browser, go to `http://127.0.0.1:8000/` or `http://localhost:8000/`. You should see the following frontpage.
+
+![predict-frontend](./assets/predict.png)
+
+### Use the prediction web app
+
+From the frontend of the web app, you can:
+- Input data for each field with the precision up to 0.1 decimal points.
+
+![input-data](./assets/input-data.png)
+
+- View the predicted result.
+
+![prediction_results](./assets/prediction_results.png)
+
+- View the historical prediction results.
+
+![database](./assets/database.png)
