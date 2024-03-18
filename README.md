@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This is a simple project to practice building a web app to predict Iris flower based on its characteristics (petal, sepal lengths, etc.). I used Support Vector Machines (SVM) model to train the samples and make predictions. Then, I built an interactive web-based application using Django framework. Users can enter the input values and the app backend will make predictions based on the trained model and respond with the prediction results.
+This is a simple project to practice building a web app to predict Iris flowers based on their characteristics (petal, sepal lengths, etc.). I used a Support Vector Machine (SVM) model to train the samples and make predictions. Then, I built an interactive web-based application using the Django framework. Users can enter the input values, and the app backend will make predictions based on the trained model and respond with the prediction results.
 
 ## Features
 
@@ -48,7 +48,7 @@ Now, you're ready to set up your environment. Run the following command:
 pipenv install --ignore-pipfile
 ```
 
-This ensures that you are installing the exact versions of the dependencies that I used.
+This ensures that you install the exact versions of the dependencies I used.
 
 However, if you want to install dependencies based on the Pipfile and update the Pipfile.lock accordingly, use this instead:
 
@@ -56,7 +56,7 @@ However, if you want to install dependencies based on the Pipfile and update the
 pipenv install
 ```
 
-If you do not use `pipenv`, then run this command to install the dependencies listed in the `requirements.txt` (it's actually extracted from my pipfile):
+If you do not use `pipenv`, then run this command to install the dependencies listed in the `requirements.txt`, which is actually extracted from my pipfile:
 
 ```bash
 pip install -r requirements.txt
@@ -108,11 +108,10 @@ From the frontend of the web app, you can:
 ## Data
 
 ![iris_species](./assets/iris_species.png)
-*(Credit: Wikimedia)*
 
-This data sets consists of the measurements of petal and sepal length/width of iris flowers. There are 3 different types of irises’ (Setosa, Versicolour, and Virginica) as the target variable for the machine learning model.
+This data set consists of the petal and sepal length/width measurements of iris flowers. There are three different types of irises (Setosa, Versicolour, and Virginica) as the target variable for the machine learning model.
 
-The dataset is a CSV file which contains a set of 150 records under 5 attributes - Petal Length, Petal Width, Sepal Length, Sepal width and Class(Species).
+The dataset is a CSV file that contains 150 records under 5 attributes: Petal Length, Petal Width, Sepal Length, Sepal width, and Class(Species).
 
 Read more about the Iris dataset [here](https://archive.ics.uci.edu/dataset/53/iris).
 
@@ -122,19 +121,19 @@ I used the **Support Vector Machines (SVM)** model since it's effective for clas
 
 ## Technical Details
 
-This section briefly describes the structure of the Iris Flower Prediction App, which I will introduces the Django MVT (Model-View-Template) architecture and the flow of data through the system.
+This section briefly describes the structure of the Iris Flower Prediction App. I will introduce the Django MVT (Model-View-Template) architecture and the flow of data through the system.
 
 ### Django MVT architecture
 
-Django uses the MVT (Model-View-Template) framework. This framework is used to separate the logic of different application components. This helps increase the modularity concept which is good for reproducibility, scalability, and maintainability.
+Django uses the MVT (Model-View-Template) framework. This framework separates the logic of different application components. This helps increase the modularity concept, which is good for reproducibility, scalability, and maintainability.
 
 #### 1. Model (`models.py`)
 
-In this app, there is one class `PredResults` for the model. The class defines the structure of the database which stores the prediction results. Each field is corresponding to a column in the database and the classification result.
+In this app, there is one class `PredResults` for the model. The class defines the structure of the database that stores the prediction results. Each field corresponds to a column in the database and the classification result.
 
 #### 2. View (`views.py`)
 
-Views are the classes that receive requests from users and return the prediction responses. In this app, there are three classes (views): `predict`, `predict_chances`, and `view_results`. Each view handles a different logic:
+Views are the classes that receive requests from users and return the prediction responses. This app has three classes (views): `predict`, `predict_chances`, and `view_results`. Each view handles a different logic:
 
 - `predict`: processes the submission from the input form.
 - `predict_chances`: makes the prediction using the pre-trained ML model (the pickle file) and stores the results in the database.
@@ -179,3 +178,24 @@ sequenceDiagram
 1. User interaction: The flow begins when users navigate to the Iris Prediction form (shown by `predict.html` file). Users can input values in the fields.
 1. Form submission: When users submit the form, the data is sent to the `predict_chances` view in `views.py` file. This view processes the data using the ML model (saved in pickle format) and returns the classification result. Then, the data is stored in the database by using the `PredResults` model in `models.py`.
 1. Result display: The view sends a response back to the users on `predict.html` file. Users can also go to **Database** (`results.html` page) to view all past prediction results stored in the database.
+
+## Next Steps
+
+In the future, there are some tasks that I think I can improve on the project:
+
+- Improve the styling of the app.
+- Deploy the project to a cloud platform like AWS or Azure.
+- Add images of Iris flowers in the results.
+
+## Contributing
+
+I welcome contributions, feedback, and suggestions! Please feel free to fork the project, open pull requests/issues, or contact me with your ideas.
+
+## Credits
+
+- VeryAcademy’s YouTube tutorial. I’ve modified some parts of the original project by VeryAcademy, such as styling the app, minor changes to SVM modelling and HTML files, unit testing, etc.
+- Book: Python Crash Course 3rd Edition by Eric Matthes.
+
+## License
+
+MIT license.
