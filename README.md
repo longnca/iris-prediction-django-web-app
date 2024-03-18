@@ -1,4 +1,4 @@
-# Iris Prediction Web App using Scikit-learn and Django
+# Iris Prediction Web App using Django
 
 ![predict-frontend](./assets/predict.png)
 
@@ -104,3 +104,78 @@ From the frontend of the web app, you can:
 - View the historical prediction results.
 
 ![database](./assets/database.png)
+
+## Data
+
+![iris_species](./assets/iris_species.png)
+*(Credit: Wikimedia)*
+
+This data sets consists of the measurements of petal and sepal length/width of iris flowers. There are 3 different types of irises’ (Setosa, Versicolour, and Virginica) as the target variable for the machine learning model.
+
+The dataset is a CSV file which contains a set of 150 records under 5 attributes - Petal Length, Petal Width, Sepal Length, Sepal width and Class(Species).
+
+Read more about the Iris dataset [here](https://archive.ics.uci.edu/dataset/53/iris).
+
+## Models
+
+I used the **Support Vector Machines (SVM)** model since it's effective for classification problems and yields the best accuracy and precision compared to other methods based on UCI's website.
+
+## Technical Details
+
+This section briefly describes the structure of the Iris Flower Prediction App, which I will introduces the Django MVT (Model-View-Template) architecture and the flow of data through the system.
+
+### Django MVT architecture
+
+Django uses the MVT (Model-View-Template) framework. This framework is used to separate the logic of different application components. This helps increase the modularity concept which is good for reproducibility, scalability, and maintainability.
+
+#### 1. Model (`models.py`)
+
+In this app, there is one class `PredResults` for the model. The class defines the structure of the database which stores the prediction results. Each field is corresponding to a column in the database and the classification result.
+
+#### 2. View (`views.py`)
+
+Views are the classes that receive requests from users and return the prediction responses. In this app, there are three classes (views): `predict`, `predict_chances`, and `view_results`. Each view handles a different logic:
+
+- `predict`: processes the submission from the input form.
+- `predict_chances`: makes the prediction using the pre-trained ML model (the pickle file) and stores the results in the database.
+- `view_results`: shows the database of past results.
+
+#### 3. Template (`templates/`)
+
+The folder `iris_predict_app/templates/` contains HTML files which show the front-end interface. This app uses two templates, `predict.html` and `results.html` to render the user interface.
+
+- `predict.html`: shows the front-end of the app.
+- `results.html`: shows the tables of results in the database.
+
+### Data flow
+
+The diagram below illustrates the flow of data through the system.
+
+```mermaid
+sequenceDiagram
+    participant User as User
+    participant Form as Iris Prediction Form
+    participant View as predict_chances View
+    participant Model as PredResults Model
+    participant DB as Database
+    participant Response as Prediction Response
+
+    User->>+Form: Navigate & Submit Data
+    Form->>+View: POST sepal/petal data
+    View->>+Model: Create new instance
+    Model->>+DB: Save instance
+    DB-->>-Model: Confirm save
+    Model-->>-View: Instance saved
+    View->>+Response: Generate prediction
+    Response-->>-Form: Display prediction modal
+    Form-->>-User: Show result & options
+
+    Note over User,Form: Interaction initiates on predict.html
+    Note over View,Model: Business logic & data processing
+    Note over Model,DB: Data storage & retrieval
+    Note over Response,User: Final outcome presented to User
+```
+
+1. User interaction: The flow begins when users navigate to the Iris Prediction form (shown by `predict.html` file). Users can input values in the fields.
+1. Form submission: When users submit the form, the data is sent to the `predict_chances` view in `views.py` file. This view processes the data using the ML model (saved in pickle format) and returns the classification result. Then, the data is stored in the database by using the `PredResults` model in `models.py`.
+1. Result display: The view sends a response back to the users on `predict.html` file. Users can also go to **Database** (`results.html` page) to view all past prediction results stored in the database.
