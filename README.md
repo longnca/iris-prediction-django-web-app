@@ -186,6 +186,7 @@ In the future, there are some tasks that I think I can improve on the project:
 - Improve the styling of the app.
 - Deploy the project to a cloud platform like AWS or Azure.
 - Add images of Iris flowers in the results.
+- Add a retrain capability.
 
 ## Contributing
 
